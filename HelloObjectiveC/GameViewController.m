@@ -35,6 +35,7 @@
     return YES;
 }
 
+
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -52,6 +53,17 @@
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (void)viewWillLayoutSubviews {
+    // Create and configure the scene.
+    SKView * skView = (SKView *)self.view;
+    GameScene *scene = [GameScene nodeWithFileNamed:@"GameScene"];
+    scene.scaleMode = SKSceneScaleModeResizeFill;
+    
+    // Present the scene.
+    [skView presentScene:scene];
+    
 }
 
 @end
