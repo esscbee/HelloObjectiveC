@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HelloObjectiveC/GameScene.m"
-            timestampString = "490834264.353447"
+            timestampString = "490891989.402655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "-initFromScene:"
             landmarkType = "5">
          </BreakpointContent>

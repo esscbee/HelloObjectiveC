@@ -8,6 +8,14 @@
 
 #import "GameScene.h"
 
+// *********************************** Constants ***********************
+NSString *const NAME_TICK = @"Tick";
+NSString *const NAME_MINUTE = @"Minute";
+NSString *const NAME_HOUR = @"Hour";
+NSString *const NAME_SECOND = @"Second";
+
+
+
 
 // *********************************** UglyHands ***********************
 @interface UglyHands : NSObject<Hands>
@@ -52,6 +60,9 @@
 -(void) createFace {
     
 }
+-(void) setStatus:(NSString *)status {
+    
+}
 @end
 
 // *********************************** BlockHands *********************
@@ -60,6 +71,7 @@
 @property SKNode *hourHand;
 @property SKNode *minuteHand;
 @property SKNode *secondHand;
+@property SKLabelNode *statusLabel;
 
 @property CGFloat multiplier;
 
@@ -67,18 +79,19 @@
 @end
 
 @implementation BlockHands
--(SKNode*) createBar: (CGFloat)height :(UIColor *) color {
+-(SKNode*) createBar: (CGFloat)height :(UIColor *)color :(NSString const*) name {
     
     CGSize size = CGSizeMake(2.0, height);
     SKSpriteNode * sk = [ SKSpriteNode spriteNodeWithColor:color size: size];
     CGSize fr = self.scene.frame.size;
     sk.position = CGPointMake(fr.width / 2.0, fr.height / 2.0);
     sk.anchorPoint = CGPointMake(0.25, 0.25);
+    sk.name = name;
     sk.zPosition = 10;
     return sk;
 }
--(SKNode*) createBarAndAnimate: (CGFloat)height :(UIColor *) color {
-    SKNode *sk = [self createBar:height : color];
+-(SKNode*) createBarAndAnimate: (CGFloat)height :(UIColor *) color :(NSString const*) name  {
+    SKNode *sk = [self createBar:height :color :name ];
     [self.scene addChild:sk ];
     [sk runAction:[ SKAction sequence:
                    @[
@@ -95,10 +108,15 @@
         CGFloat dim = size.width < size.height ? size.width : size.height;
         self.multiplier = dim / 50.0;
 
-        self.hourHand = [self createBarAndAnimate:20 * _multiplier : [UIColor blackColor ]];
-        self.minuteHand = [self createBarAndAnimate:30 * _multiplier : [UIColor redColor ]];
-        self.secondHand = [self createBarAndAnimate:30 * _multiplier : [UIColor whiteColor ]];
+        self.hourHand = [self createBarAndAnimate:20 * _multiplier :[UIColor blackColor ] :NAME_HOUR];
+        self.minuteHand = [self createBarAndAnimate:30 * _multiplier : [UIColor redColor ] :NAME_MINUTE];
+        self.secondHand = [self createBarAndAnimate:30 * _multiplier : [UIColor whiteColor ] :NAME_SECOND];
         
+        // creat status
+        self.statusLabel = [ SKLabelNode labelNodeWithText: nil ];
+        CGPoint center = CGPointMake(size.width / 2, size.height - 30);
+        self.statusLabel.position = center;
+        [self.scene addChild:self.statusLabel ];
     }
     
     return self;
@@ -106,11 +124,11 @@
 
 -(void)createFace {
     for(int i = 0; i < 60 ; i ++) {
-        SKNode *skOuter = [ self createBar: 30 * _multiplier : [UIColor colorWithRed:0 green:.7 blue:0 alpha:.8 ]];
+        SKNode *skOuter = [ self createBar: 30 * _multiplier : [UIColor colorWithRed:0 green:.7 blue:0 alpha:.8 ] :NAME_TICK];
         skOuter.zPosition = -10;
         skOuter.alpha = 1;
         [ self.scene addChild:skOuter ];
-        SKNode *skInner =[ self createBar: 29 * _multiplier : [self.scene backgroundColor ]];
+        SKNode *skInner =[ self createBar: 29 * _multiplier : [self.scene backgroundColor ] : @"no_name"];
         skInner.zPosition = 1;
 //        skInner.alpha = .5;
         [ self.scene addChild:skInner ];
@@ -119,6 +137,9 @@
         [ skOuter runAction:rotate];
         [ skInner runAction:rotate];
     }
+}
+-(void) setStatus:(NSString *)status {
+    self.statusLabel.text = status;
 }
 
 
@@ -170,4 +191,18 @@
 -(void) timerCallBack: (NSTimer *) theTimer {
     [ self updateHands ];
 }
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint location = [touch locationInNode:self ];
+        SKNode *node = [self nodeAtPoint:location];
+        if(node != nil) {
+            NSString * name = node.name;
+            [self.hands setStatus: name];
+        }
+        
+    }
+}
+
+
 @end

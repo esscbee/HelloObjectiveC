@@ -15,6 +15,7 @@
 @property SKNode *secondHand;
 
 -(void) createFace;
+-(void) setStatus: (NSString *)status;
 
 @end
 
