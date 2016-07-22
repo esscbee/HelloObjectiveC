@@ -13,6 +13,9 @@
 @property SKNode *hourHand;
 @property SKNode *minuteHand;
 @property SKNode *secondHand;
+
+-(void) createFace;
+
 @end
 
 
@@ -22,7 +25,7 @@
 @property NSTimer * timer;
 @property id <Hands> hands;
 
--(void) load ;
+
 
 //@property SKNode *secondHand;
 //@property SKNode *minuteHand;

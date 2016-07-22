@@ -37,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D60F22C61D3FEF6800F72621 /* HelloObjectiveC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloObjectiveC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D60F22C61D3FEF6800F72621 /* Hello Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D60F22CA1D3FEF6800F72621 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D60F22CC1D3FEF6800F72621 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D60F22CD1D3FEF6800F72621 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		D60F22C71D3FEF6800F72621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D60F22C61D3FEF6800F72621 /* HelloObjectiveC.app */,
+				D60F22C61D3FEF6800F72621 /* Hello Clock.app */,
 				D60F22E41D3FEF6900F72621 /* HelloObjectiveCTests.xctest */,
 				D60F22EF1D3FEF6900F72621 /* HelloObjectiveCUITests.xctest */,
 			);
@@ -165,7 +165,7 @@
 			);
 			name = HelloObjectiveC;
 			productName = HelloObjectiveC;
-			productReference = D60F22C61D3FEF6800F72621 /* HelloObjectiveC.app */;
+			productReference = D60F22C61D3FEF6800F72621 /* Hello Clock.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D60F22E31D3FEF6900F72621 /* HelloObjectiveCTests */ = {
@@ -428,7 +428,7 @@
 				INFOPLIST_FILE = HelloObjectiveC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = esscbee.HelloObjectiveC;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Hello Clock";
 			};
 			name = Debug;
 		};
@@ -439,7 +439,7 @@
 				INFOPLIST_FILE = HelloObjectiveC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = esscbee.HelloObjectiveC;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Hello Clock";
 			};
 			name = Release;
 		};
@@ -510,6 +510,7 @@
 				D60F22FA1D3FEF6900F72621 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D60F22FB1D3FEF6900F72621 /* Build configuration list for PBXNativeTarget "HelloObjectiveCTests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +519,7 @@
 				D60F22FD1D3FEF6900F72621 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D60F22FE1D3FEF6900F72621 /* Build configuration list for PBXNativeTarget "HelloObjectiveCUITests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +528,7 @@
 				D60F23001D3FEF6900F72621 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
