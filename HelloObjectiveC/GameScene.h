@@ -8,12 +8,25 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+
+@protocol Hands
+@property SKNode *hourHand;
+@property SKNode *minuteHand;
+@property SKNode *secondHand;
+@end
+
+
+
 @interface GameScene : SKScene
 
 @property NSTimer * timer;
-@property SKNode *secondHand;
-@property SKNode *minuteHand;
-@property SKNode *hourHand;
+@property id <Hands> hands;
+
+-(void) load ;
+
+//@property SKNode *secondHand;
+//@property SKNode *minuteHand;
+//@property SKNode *hourHand;
 
 
 @end
