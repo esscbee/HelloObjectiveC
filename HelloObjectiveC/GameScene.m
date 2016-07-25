@@ -9,10 +9,10 @@
 #import "GameScene.h"
 
 // *********************************** Constants ***********************
-NSString *const NAME_TICK = @"Tick";
-NSString *const NAME_MINUTE = @"Minute";
-NSString *const NAME_HOUR = @"Hour";
-NSString *const NAME_SECOND = @"Second";
+NSString *const NAME_TICK = @"TickMark";
+NSString *const NAME_MINUTE = @"MinuteHand";
+NSString *const NAME_HOUR = @"HourHand";
+NSString *const NAME_SECOND = @"SecondHand";
 
 
 
@@ -101,16 +101,31 @@ NSString *const NAME_SECOND = @"Second";
     
     return sk;
 }
+-(UIColor *) loadColor: (NSString *)key : (UIColor *) defColor {
+    NSData * data =  [[ NSUserDefaults standardUserDefaults] dataForKey:key ];
+    if (data) {
+        UIColor * retColor = [ NSKeyedUnarchiver unarchiveObjectWithData:data ];
+        if (retColor) {
+            return retColor;
+        }
+    }
+    return defColor;
+}
 -(id) initFromScene: (SKScene *)scene {
     if (self = [super init]) {
         self.scene = scene;
         CGSize size = self.scene.frame.size;
         CGFloat dim = size.width < size.height ? size.width : size.height;
         self.multiplier = dim / 50.0;
+        
+        UIColor *hourColor = [self loadColor:NAME_HOUR : [UIColor blackColor]];
+        UIColor *minuteColor = [self loadColor:NAME_MINUTE : [UIColor whiteColor] ];
+        UIColor *secondColor = [self loadColor:NAME_SECOND : [UIColor redColor] ];
+        
 
-        self.hourHand = [self createBarAndAnimate:20 * _multiplier :[UIColor blackColor ] :NAME_HOUR];
-        self.minuteHand = [self createBarAndAnimate:30 * _multiplier : [UIColor redColor ] :NAME_MINUTE];
-        self.secondHand = [self createBarAndAnimate:30 * _multiplier : [UIColor whiteColor ] :NAME_SECOND];
+        self.hourHand = [self createBarAndAnimate:20 * _multiplier : hourColor  :NAME_HOUR];
+        self.minuteHand = [self createBarAndAnimate:30 * _multiplier : minuteColor  :NAME_MINUTE];
+        self.secondHand = [self createBarAndAnimate:30 * _multiplier : secondColor :NAME_SECOND];
         
         // creat status
         self.statusLabel = [ SKLabelNode labelNodeWithText: nil ];
@@ -124,11 +139,12 @@ NSString *const NAME_SECOND = @"Second";
 
 -(void)createFace {
     for(int i = 0; i < 60 ; i ++) {
+        int mul = (0 == i%5) ? 27 : 29;
         SKNode *skOuter = [ self createBar: 30 * _multiplier : [UIColor colorWithRed:0 green:.7 blue:0 alpha:.8 ] :NAME_TICK];
         skOuter.zPosition = -10;
         skOuter.alpha = 1;
         [ self.scene addChild:skOuter ];
-        SKNode *skInner =[ self createBar: 29 * _multiplier : [self.scene backgroundColor ] : @"no_name"];
+        SKNode *skInner =[ self createBar: mul * _multiplier : [self.scene backgroundColor ] : @"no_name"];
         skInner.zPosition = 1;
 //        skInner.alpha = .5;
         [ self.scene addChild:skInner ];
@@ -198,9 +214,21 @@ NSString *const NAME_SECOND = @"Second";
         SKNode *node = [self nodeAtPoint:location];
         if(node != nil) {
             NSString * name = node.name;
-            [self.hands setStatus: name];
+            
+            break;
         }
         
+    }
+}
+
+-(void)setColor:(NSString *)name :(UIColor *)theColor {
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:theColor];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:name ];
+    
+    for(SKNode *n in self.children) {
+        if(n.name == name) {
+            ((SKSpriteNode *)n).color = theColor;
+        }
     }
 }
 

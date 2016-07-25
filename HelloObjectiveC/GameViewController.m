@@ -7,7 +7,6 @@
 //
 
 #import "GameViewController.h"
-#import "GameScene.h"
 
 @implementation GameViewController
 
@@ -17,8 +16,8 @@
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+//    skView.showsFPS = YES;
+//    skView.showsNodeCount = YES;
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     skView.ignoresSiblingOrder = YES;
     
@@ -35,6 +34,10 @@
     return YES;
 }
 
+-(UIColor *)chooseColor:(UIColor *)inColor {
+    
+    return inColor;
+}
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {

@@ -19,12 +19,17 @@
 
 @end
 
+@protocol ColorChooser
+-(UIColor *) chooseColor: (UIColor *)inColor;
+@end
 
 
 @interface GameScene : SKScene
 
 @property NSTimer * timer;
 @property id <Hands> hands;
+
+-(void) setColor: (NSString *) name : (UIColor *) theColor;
 
 
 
